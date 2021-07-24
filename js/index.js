@@ -2,6 +2,7 @@ let listMusics = document.querySelector('.list-musics');
 let btnLibrary = document.querySelector('.btn-library');
 let pointer = document.querySelector('.pointer');
 let Library = document.querySelector('.Library');
+let Player = document.querySelector('.Player');
 
 let musics = [
     {
@@ -40,10 +41,24 @@ musics.map(item => {
     listMusics.insertAdjacentHTML('beforeend', music);
 });
 
+
+let imgMusic = document.querySelector('.img-music');
+let audioName = document.querySelector('.audio-name');
+let audioPerformers = document.querySelector('.audio-perfomers');
+
+
+window.addEventListener('load', function () {
+    audio.src =  musics[0].src_audio;
+    imgMusic.src = musics[0].src_img;
+    audioName.textContent = musics[0].name;
+    audioPerformers.textContent = musics[0].performers;
+});
+
 // события на раскрытия плейлиста
 btnLibrary.addEventListener('click', function(e) {
     Library.classList.toggle('active');
     pointer.classList.toggle('rotate');
+    Player.classList.toggle('shift');
 });
 
 
@@ -54,8 +69,12 @@ arrayMusic.forEach(item => {
     item.addEventListener('click', function(event) { 
         // ищем объект с нужным id и элементы audio даём ссылку на мелодию из этого же объекта
         let music = musics.find(music => music.id === parseInt(event.currentTarget.id, 10));
+
         audio.src =  music.src_audio;
-       
+        imgMusic.src = music.src_img;
+        audioName.textContent = music.name;
+        audioPerformers.textContent = music.performers;
+        
         // проверка на повторное нажатие
         // если на элементе фокус (то есть с этого элемента воспроизводится музыка)
         // то останавливаем музыку и снимаем фокус с этого элемента
@@ -80,7 +99,6 @@ arrayMusic.forEach(item => {
 
 /* модернизация кода:
    1) создание функции для проигрывания мелодии и устнановки её на паузу
-   2) отображение фотки альбома, названия мелодии и группы исполнителей
    3) реализации работы других кнопок
 */
 // реализация проигрования мелодии
@@ -95,6 +113,31 @@ btnPlay.addEventListener('click', function() {
         btnPlay.src = 'https://s2.svgbox.net/hero-solid.svg?ic=play&color=000000';
         audio.pause();
         audio.classList.remove('start');
+    }
+})
+
+
+// реализация прогресса проигрования мелодии
+let progress = document.querySelector('.progress');
+audio.addEventListener('timeupdate', function() {
+    let position = audio.currentTime / audio.duration;
+    progress.style.width = position * 100 + '%';
+});
+
+// возвращаем прогресс в 0 позицию при окончании прогрывания мелодии
+audio.addEventListener('ended', function() {
+    progress.style.width = 0 + '%';
+    btnPlay.src = 'https://s2.svgbox.net/hero-solid.svg?ic=play&color=000000';
+});
+
+let btnRepeat = document.querySelector('.btn-repeat');
+btnRepeat.addEventListener('click', function() {
+    if(audio.hasAttribute('loop')) {
+        btnRepeat.src = 'https://s2.svgbox.net/hero-solid.svg?ic=refresh&color=000000';
+        audio.removeAttribute('loop');
+    } else {
+        btnRepeat.src = 'https://s2.svgbox.net/hero-solid.svg?ic=refresh&color=D3B9FF';
+        audio.setAttribute('loop', 'loop');
     }
 })
 
