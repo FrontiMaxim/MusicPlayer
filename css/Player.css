@@ -2,26 +2,85 @@
     width: 80%;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    /*
-    background-color: #D1DDE6;*/
+    margin-left: -10%;
+    transition: 1s all;
+}
+
+.shift {
+    margin-left: 0;
+    transition: 1s all;
+}
+
+.img-music {
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+}
+
+.audio-description {
+    margin: 20px 0 20px 0;
+}
+
+.audio-description p {
+    text-align: center;
+    color: #839B96;
+    padding: 0;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+.audio-name {
+    font-size: 1.8em;
+}
+
+.audio-perfomers {
+    font-size: 1em;
 }
 
 .audio-player {
     width: 60%;
-    height: 8vh;
+    height: 9vh;
     box-shadow: 0 0 10px #839B96;
     border-radius: 15px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.panel {
+    width: 100%;
+    display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.bar {
+    width: 80%;
+    height: 1vh;
+    background-color: #838B96;
+    border-radius: 10px;
+}
+
+.progress {
+    height: 1vh;
+    width: 0%;
+    background-color: #D3B9FF;
+    border-radius: 10px;
 }
 
 .btn-play:hover {
     cursor: pointer;
 }
 
+.btn-repeat:hover {
+    cursor: pointer;
+}
+
 .focus {
     background-color: #D3B9FF;
 }
+
